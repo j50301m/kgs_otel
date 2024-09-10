@@ -154,6 +154,8 @@ func startGrpcServer(ctx context.Context) {
 		}
 	}()
 
+	log.Println("gRPC server started...")
+
 	<-ctx.Done()
 
 	log.Println("gRPC server shut down gracefully...")

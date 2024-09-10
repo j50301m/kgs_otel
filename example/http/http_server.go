@@ -25,19 +25,19 @@ func StartHttpServer(ctx context.Context) {
 		log.Fatal(err)
 	}
 
-	// Initialize the gRPC client
-	helloClient, err := NewHelloClient(_grpcUrl)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer helloClient.Close()
-
 	// Graceful shutdown
 	defer func() {
 		if err := shutdown(ctx); err != nil {
 			log.Fatal(err)
 		}
 	}()
+
+	// Initialize the gRPC client
+	helloClient, err := NewHelloClient(_grpcUrl)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer helloClient.Close()
 
 	r := gin.New()
 	r.Use(otelgin.TracingMiddleware(_httpServiceName))

@@ -11,5 +11,6 @@ func main() {
 	defer stop()
 
 	go StartHttpServer(ctx)
+
 	<-ctx.Done()
 }
