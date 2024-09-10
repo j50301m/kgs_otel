@@ -46,7 +46,7 @@ func Error(ctx context.Context, message string, fields ...Field) {
 
 func StartTrace(ctx context.Context) (context.Context, trace.Span) {
 	tracer := otel.Tracer("") // The name of the tracer is not important
-	caller, funcName := getCaller()
+	caller, funcName := getCaller(2)
 	ctx, span := tracer.Start(ctx, funcName)
 	traceID := span.SpanContext().TraceID().String()
 	spanID := span.SpanContext().SpanID().String()
@@ -67,7 +67,7 @@ func setSpanAttrsAndZapFields(ctx context.Context, fields ...Field) (span trace.
 	span = trace.SpanFromContext(ctx)
 	traceID := span.SpanContext().TraceID().String()
 	spanID := span.SpanContext().SpanID().String()
-	caller, funcName := getCaller()
+	caller, funcName := getCaller(3)
 
 	// Create attributes for span and zap logger
 	attributes := []attribute.KeyValue{
@@ -94,8 +94,8 @@ func setSpanAttrsAndZapFields(ctx context.Context, fields ...Field) (span trace.
 
 }
 
-func getCaller() (caller string, funcName string) {
-	pc, file, line, ok := runtime.Caller(2)
+func getCaller(skip int) (caller string, funcName string) {
+	pc, file, line, ok := runtime.Caller(skip)
 	if !ok {
 		return "unknown", "unknown"
 	}
