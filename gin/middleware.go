@@ -49,7 +49,7 @@ func Tracing(serviceName string, opts ...Option) gin.HandlerFunc {
 		cfg.Propagators = otel.GetTextMapPropagator()
 	}
 
-	// Start the tracer and meter for the service.
+	// Set the tracer and meter for the service.
 	tracer := otel.Tracer(serviceName)
 	meter := otel.Meter(serviceName)
 
