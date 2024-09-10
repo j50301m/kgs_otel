@@ -10,7 +10,7 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 
-	go startHttpServer(ctx)
+	go startGrpcServer(ctx)
 
 	<-ctx.Done()
 }
