@@ -23,7 +23,7 @@ type helloClient struct {
 func NewHelloClient(grpcAddr string) (helloClient, error) {
 
 	conn, err := grpc.NewClient(grpcAddr, grpc.WithTransportCredentials(insecure.NewCredentials()),
-		grpc.WithStatsHandler(otelgrpc.StartTrace(otelgrpc.RoleClient)))
+		grpc.WithStatsHandler(otelgrpc.TracingMiddleware(otelgrpc.RoleClient)))
 	if err != nil {
 		log.Fatalf("did not connect: %s", err)
 	}

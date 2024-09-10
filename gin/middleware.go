@@ -33,7 +33,7 @@ const (
 // Middleware returns middleware that will trace incoming requests.
 // The service parameter should describe the name of the (virtual)
 // server handling the request.
-func Tracing(serviceName string, opts ...Option) gin.HandlerFunc {
+func TracingMiddleware(serviceName string, opts ...Option) gin.HandlerFunc {
 	var err error
 	cfg := config{}
 	for _, opt := range opts {

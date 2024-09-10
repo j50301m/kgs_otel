@@ -38,7 +38,7 @@ type middleware struct {
 	role   Role
 }
 
-func StartTrace(role Role, opts ...Option) stats.Handler {
+func TracingMiddleware(role Role, opts ...Option) stats.Handler {
 	m := &middleware{
 		config: newConfig(role, opts...),
 		role:   role,

@@ -40,7 +40,7 @@ func StartHttpServer(ctx context.Context) {
 	}()
 
 	r := gin.New()
-	r.Use(otelgin.Tracing(_httpServiceName))
+	r.Use(otelgin.TracingMiddleware(_httpServiceName))
 
 	r.GET("/version", func(c *gin.Context) {
 		ctx, span := kgsotel.StartTrace(c.Request.Context())

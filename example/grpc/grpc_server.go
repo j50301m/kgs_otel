@@ -144,7 +144,7 @@ func startGrpcServer(ctx context.Context) {
 	}
 
 	s := grpc.NewServer(
-		grpc.StatsHandler(otelgrpc.StartTrace(otelgrpc.RoleServer)),
+		grpc.StatsHandler(otelgrpc.TracingMiddleware(otelgrpc.RoleServer)),
 	)
 
 	go func() {
