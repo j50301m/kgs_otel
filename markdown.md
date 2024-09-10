@@ -1,15 +1,15 @@
 # Kgs Otel
 
-這是一個基於opentelemetry-go的集成工具 主要實現了gin與grpc中tracing的功能
-讓開發中可以調用簡單的方法達到監控服務與日誌的功能
+This is an integration tool based on opentelemetry-go, primarily implementing tracing functionality in gin and grpc.
+It allows developers to use simple methods to achieve service monitoring and logging functions during development.
 
-可以參考使用 [`example`]來實現功能
+You can refer to the [`example`] to implement the functionality.
 
 # Usage
 
-下面是一個簡單的例子展示如何初始化telemetry與gin server如何貼添加中間件
-```go
+Below is a simple example showing how to initialize telemetry and how to add middleware to a gin server:
 
+```go
 import (
 	"context"
 	kgsotel "kgs/otel"
@@ -20,7 +20,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
- func main() {
+func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 
@@ -46,7 +46,7 @@ import (
 		ctx, span := kgsotel.StartTrace(c.Request.Context())
 		defer span.End()
 
-        // Log some message
+        // Log some messages
 		kgsotel.Info(ctx, "Hello world!")
         kgsotel.Warn(ctx,"Oops~")
         kgsotel.Error(ctx,"Oh No!")
@@ -57,5 +57,5 @@ import (
 	})
 
     // ...
- }
+}
 ```
